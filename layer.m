@@ -351,13 +351,13 @@ else
                         Booster=1; %Activate algorithm?
                         if side_hit==2&&Booster==1
                                                                                        
-                                if P(3)<0 % checking if the ray is pointing down or up
+                                if P(3)<=0 % checking if the ray is pointing down or up
                                     screenpos=-sum([layer_data(1:layer_position).d_layer])+layer_data(layer_position).p_bot+0.1; % Calculating the z componant of a horizontal layer above the bottom texture
                                     S_botscreen=struct('p',[w/2;w/2;screenpos],'v1',[1;0;0],'v2',[0;1;0],'N',[0;0;1],'pos','bot_scr'); % Determining the representation of the layer for the intersect algorythm
                                     rst_struct_init=struct('nr',0,'r',0,'s',0,'t',0,'first_hit',0,'pos',0); % Resetting rst_struct
                                     [rst2]=intersect(p,P,S_botscreen,rst_struct_init); % Calculating rst for the ray and the layer
                                     h0=abs(screenpos)-abs(p(3));
-                                elseif P(3)>0
+                                elseif P(3)>0 % Upwards
                                     if layer_position==1
                                         screenpos=-0.1;
                                     else

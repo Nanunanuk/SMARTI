@@ -8,7 +8,7 @@
 
 %% DIRECTION OF INCIDENT LIGHT
 alpha_batch = [0];
-theta_batch = [0 70];
+theta_batch = [0];
 
 rdm_ray_dir = 0; % Diffuse sky (1 to activate)
 
@@ -38,7 +38,7 @@ layer_mat={Air Glass EVA Si AlSi};
 
 %% Setting material for coating on top of corresponding layer (if no coating is applied write 'noAR')
 AR_mat={'noAR' 'noAR' 'noAR' SiNx 'noAR'};
-d_AR_batch={0 0 0 [75 100] 0};                    %nm
+d_AR_batch={0 0 0 [75] 0};                    %nm
 
 %% Choose the geometry of each layer (Use the name of the corresponding geometry function starting with 'geometry')
 S_geom={...

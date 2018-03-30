@@ -76,12 +76,13 @@ while count<3
         
     elseif isempty(hit)==1
         hit=0;
-        return
+        return %Exits the function
     end
     if hit~=0
-        break
+        break %Exits the while loop
     end
     correct=correct+0.0001;
+    count=count+1;
 end
 
 

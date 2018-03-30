@@ -13,7 +13,7 @@ for layer=1:size(layer_mat,2)
 end
 figure
 
-eval(['area(A_1(:,1),[' A_str 'A_AR(:,2), A_bb(:,2)+A_fi(:,2), R_esc(:,2), T_tot(:,2)]);'])
+eval(['area(A_1(:,1),[' A_str 'A_AR(:,2), A_bb(:,2)+A_fi(:,2), R_tot(:,2), T_tot(:,2)]);'])
 axis([lambda_min lambda_max 0 1])
 
 ylabel('Share of individual pocesses')

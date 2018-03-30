@@ -8,13 +8,13 @@
 
 %% DIRECTION OF INCIDENT LIGHT
 alpha_batch = [0];
-theta_batch = [0 70];
+theta_batch = [0];
 
 rdm_ray_dir = 0; % Diffuse sky (1 to activate)
 
 %% Setting spectral resolution
-lambda_min=300;
-lambda_max=1200;
+lambda_min=550;
+lambda_max=550;
 lambda_step=30;
 
 %% Setting number of rays (first range < 960nm; second for > 960nm)
@@ -34,29 +34,26 @@ Mat(7,:)={'EVA','UV transmissive','[Vog16]'};
 load_data(Mat)
 Reflector=0.5; % Reflector can also be chosen as material below
 %% Determination of the materials (Use the 'General' discription of the material in the Mat file)
-layer_mat={Air Glass EVA Si AlSi};
+layer_mat={Air Si};
 
 %% Setting material for coating on top of corresponding layer (if no coating is applied write 'noAR')
-AR_mat={'noAR' 'noAR' 'noAR' SiNx 'noAR'};
-d_AR_batch={0 0 0 [75 100] 0};                    %nm
+AR_mat={'noAR' SiNx };
+d_AR_batch={0 [75]};                    %nm
 
 %% Choose the geometry of each layer (Use the name of the corresponding geometry function starting with 'geometry')
 S_geom={...
     'geometry_cube_pyramide'...
-    'geometry_cube_pyramide'...
-    'geometry_cube_pyramide'...
-    'geometry_cube_pyramide'...
     'geometry_cube_pyramide'};
 w=10; %[µm] Width of the unit cell
-p_bot_batch={0 0 [w/2*tand(54.74)] 0 0}; % Depth of texture at bottom of layer. If only base angle is available, calculate depth by w/2*tand(angle).
+p_bot_batch={[w/2*tand(54.74)] 0}; % Depth of texture at bottom of layer. If only base angle is available, calculate depth by w/2*tand(angle).
 
 %% SUBSTRATE POSITION
-Substrate_pos=4;                    % Substrate position is needed for the generation profile
+Substrate_pos=2;                    % Substrate position is needed for the generation profile
 
-d_layer_batch={[10] 2000 50 200 10};       %µm
+d_layer_batch={[10] 10};       %µm
 
 % Lambertian scattering on bottom of the layer => Insert value between 0 and 1
-lambert={0 0 0 0 0};
+lambert={0 0};
 
 %% GRID PARAMETERS
 grid.mat={Ag Ag};
@@ -67,7 +64,7 @@ wf=180; %Width of the fingers [µm]
 pbb=46; % [mm]
 wbb=2.48;% [mm] The busbar share can be set to zero by inserting a low value such as 0.0001
 
-grid.pos={0 0 0 0 0}; %On top of the layer. No grid if all are 0.
+grid.pos={0 0}; %On top of the layer. No grid if all are 0.
 
 %% DISPLAY 3D-PLOT OF UNIT CELL (WITH OR WITHOUT RAYS)
 plotting_geom=0;
@@ -75,8 +72,8 @@ plotting_rays=0;
 xth_ray=20;
 
 %% Detection of the transmission angles after the refraction at the adjacent medium
-detect_bot=[0 0 0 0 0]; % Example: If you want to detect the angles the rays are entering the active lyer (e.g. silicon) then set the 'detect_bot' value in the layer tha is on top of it to 1
-detect_top=[0 0 0 0 0]; 
+detect_bot=[0 0]; % Example: If you want to detect the angles the rays are entering the active lyer (e.g. silicon) then set the 'detect_bot' value in the layer tha is on top of it to 1
+detect_top=[0 0]; 
 
 %% WRITING GENERATION PROFILES (as .gen-Files for PC1D)
 gen_create=0;

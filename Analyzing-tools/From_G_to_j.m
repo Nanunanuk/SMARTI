@@ -7,18 +7,18 @@ clear all
 clc
 [gen_file_loc] = uigetdir2(pwd,'Select folder with generation profiles');
 
-
 q_C=1.6021766e-19;
 
-
 for batch_cnt=1:length(gen_file_loc)
+    %% Insert path to your PC1D folder here:
     cd('C:\Users\Nils\Documents\Nils Reiners\Simulation und Software\PC1D\PC1Dmod and cmd-PC1D v6.2.1');
+    
     count=0;
     for lambda=[300:30:1200]
         count=count+1;
         wl(count)=lambda;
         %%%%%%%%%%%%%%%%%%  Konvertiere prm-Datei in txt-Datei   %%%%%%%%%%%%%%%%%%%%%%%%%%
-        convert_str=['convert_prm_to_ascii.exe Pvcell_GenBatch_fixedLS.prm Pvcell_GenBatch_fixedLS.txt'];
+        convert_str=['convert_prm_to_ascii.exe Pvcell_GenBatch.prm Pvcell_GenBatch.txt'];
         system(convert_str);
         fileformat='%s';
         
@@ -31,7 +31,7 @@ for batch_cnt=1:length(gen_file_loc)
         %%%%%%%%%%%%%%%%%%  Parameter txt-Datei einlesen   %%%%%%%%%%%%%%%%%%%%%%%%%%
         fileformat='%s';
         
-        fileID=fopen('C:\Users\Nils\Documents\Nils Reiners\Simulation und Software\PC1D\PC1Dmod and cmd-PC1D v6.2.1\Pvcell_GenBatch_fixedLS.txt');
+        fileID=fopen('C:\Users\Nils\Documents\Nils Reiners\Simulation und Software\PC1D\PC1Dmod and cmd-PC1D v6.2.1\Pvcell_GenBatch.txt');
         Daten2=textscan(fileID,fileformat, 'Delimiter', '');
         fclose(fileID);
         
@@ -45,22 +45,22 @@ for batch_cnt=1:length(gen_file_loc)
         Daten2{1}(307)=cellstr([old_str_2(1:29) new_str]);
         
         %%%%%%%%%%%%%%%%%%  Neue Parameter txt-Datei schreiben   %%%%%%%%%%%%%%%%%%%%%%%%%%
-        !del Pvcell_GenBatch_fixedLS.txt
+        !del Pvcell_GenBatch.txt
         
-        fid = fopen('Pvcell_GenBatch_fixedLS.txt', 'wt');
+        fid = fopen('Pvcell_GenBatch.txt', 'wt');
         for i=1:length(Daten2{1})
             fprintf(fid, '%s\n' , char(Daten2{1}(i)));
         end
         fclose(fid);
         
         %%%%%%%%%%%%%%%%%%  Konvertiere txt-Datei in prm-Datei   %%%%%%%%%%%%%%%%%%%%%%%%%%
-        !del Pvcell_GenBatch_fixedLS.prm
+        !del Pvcell_GenBatch.prm
         
-        convert_str=['convert_ascii_to_prm.exe Pvcell_GenBatch_fixedLS.txt Pvcell_GenBatch_fixedLS.prm'];
+        convert_str=['convert_ascii_to_prm.exe Pvcell_GenBatch.txt Pvcell_GenBatch.prm'];
         system(convert_str);
         
         %%%%%%%%%%%%%%%%%%  Simulation starten   %%%%%%%%%%%%%%%%%%%%%%%%%%
-        [status,data_string]=system('cmd-pc1d6-2.exe Pvcell_GenBatch_fixedLS.prm')
+        [status,data_string]=system('cmd-pc1d6-2.exe Pvcell_GenBatch.prm')
         
         iv=str2num(data_string(38:end));
         curr(count)=iv(2);

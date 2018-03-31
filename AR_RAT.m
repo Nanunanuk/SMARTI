@@ -1,12 +1,12 @@
-function [ R,T,A ] = AR_RAT( komplex_n1,komplex_nAR,komplex_n2,wavelength,d_AR,theta)
+function [ R,T,A ] = AR_RAT(complex_n1,complex_nAR,complex_n2,wavelength,d_AR,theta)
 
 % General form of Fresnels equation when no AR coating is involved
 % (Altermatt lectures)
-if komplex_n1==komplex_nAR||komplex_n2==komplex_nAR
+if complex_n1==complex_nAR||complex_n2==complex_nAR
     
-    cos_theta2=1/komplex_n2*sqrt(komplex_n2^2-komplex_n1^2*sin(theta)^2);
-    rs=(komplex_n1*cos(theta)-komplex_n2*cos_theta2)/(komplex_n1*cos(theta)+komplex_n2*cos_theta2);
-    rp=(komplex_n2*cos(theta)-komplex_n1*cos_theta2)/(komplex_n2*cos(theta)+komplex_n1*cos_theta2);
+    cos_theta2=1/complex_n2*sqrt(complex_n2^2-complex_n1^2*sin(theta)^2);
+    rs=(complex_n1*cos(theta)-complex_n2*cos_theta2)/(complex_n1*cos(theta)+complex_n2*cos_theta2);
+    rp=(complex_n2*cos(theta)-complex_n1*cos_theta2)/(complex_n2*cos(theta)+complex_n1*cos_theta2);
     R=0.5*rs*conj(rs)+0.5*rp*conj(rp);
     
     T=1-R;
@@ -16,24 +16,24 @@ if komplex_n1==komplex_nAR||komplex_n2==komplex_nAR
 else
     %   Transfer Matrix Methode by Macleod
     
-    phi1 = asin(komplex_n1 * sin(theta)/komplex_nAR);
-    phi2 = asin(komplex_nAR * sin(phi1)/komplex_n2);
+    phi1 = asin(complex_n1 * sin(theta)/complex_nAR);
+    phi2 = asin(complex_nAR * sin(phi1)/complex_n2);
     
     
     k0 =  (2 * pi / wavelength);
-    delta = k0 * komplex_nAR * d_AR * cos (phi1);
+    delta = k0 * complex_nAR * d_AR * cos (phi1);
     
     y = 2.3544e-3; % [Si] "optical admittance" im vacuum
     
     % "optical admittance" im Medium mit index n - % S-Polarisation (TE)
-    Y0_s = komplex_n1 * y * cos(theta);
-    Y1_s = komplex_nAR * y * cos(phi1);
-    Y2_s = komplex_n2 * y * cos(phi2);
+    Y0_s = complex_n1 * y * cos(theta);
+    Y1_s = complex_nAR * y * cos(phi1);
+    Y2_s = complex_n2 * y * cos(phi2);
     
     % "optical admittance" im Medium mit index n - % P-Polarisation (TM)
-    Y0_p = komplex_n1 * y * (1/cos(theta));
-    Y1_p = komplex_nAR * y * (1/cos(phi1));
-    Y2_p = komplex_n2 * y * (1/cos(phi2));
+    Y0_p = complex_n1 * y * (1/cos(theta));
+    Y1_p = complex_nAR * y * (1/cos(phi1));
+    Y2_p = complex_n2 * y * (1/cos(phi2));
     
     Matrix_s = [ cos(delta), (1i/Y1_s)*sin(delta)
         1i*Y1_s*sin(delta), cos(delta) ];

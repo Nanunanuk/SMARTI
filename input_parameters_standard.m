@@ -7,18 +7,18 @@
 
 
 %% DIRECTION OF INCIDENT LIGHT
-alpha_batch = [0];
-theta_batch = [0];
+alpha_batch = [0]; % Azimuth angle
+theta_batch = [0]; % Angle of incidence
 
 rdm_ray_dir = 0; % Diffuse sky (1 to activate)
 
 %% Setting spectral resolution
-lambda_min=300;
-lambda_max=1200;
-lambda_step=30;
+lambda_min=300; % Start value for wavelength array
+lambda_max=1200; % Stop value for wavelength array
+lambda_step=30; % Step value for wavelength array
 
 %% Setting number of rays (first range < 960nm; second for > 960nm)
-nr_of_rays_1=1000;
+nr_of_rays_1=1000; 
 nr_of_rays_2=1000;
 
 %% Loading material parameter. Use names from excel sheet in Data-Folder => {'GeneralName', 'SpecificName', [Source]}

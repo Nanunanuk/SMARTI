@@ -1,3 +1,12 @@
+%|************************************************************************
+%|SMARTI load_data
+%|by Nils Reiners
+%|Source: PV-lighthouse
+%|This source code is free: you can redistribute it and/or modify it under the terms of the GNU General Public License (GPL) as published by the Free Software Foundation., version 3 of the License. Any redistribution of		 |% %|modified code must also be free under the GNU General Public License.																																							 |%
+%|This source code is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for |% %|more details. You should have received a copy of the GNU General Public License along with this source code. If not, see <http://www.gnu.org/licenses/>.																		 |%
+%|************************************************************************
+
+
 function load_data(Mat)
 
 %% Loading radiation data and material parameters

@@ -13,9 +13,9 @@ clear all
 % Load input parameters
 run('input_parameters.m');
 
-
+curr_path=mfilename('fullpath');
 % Choose location where the results shell be saved
-save_file_loc = uigetdir(pwd,'Select path to store output data');
+save_file_loc = uigetdir(curr_path(1:length(curr_path)-11) ,'Select path to store output data');
 
 %% Creating array of wavelengths
 lambda=[lambda_min:lambda_step:lambda_max];

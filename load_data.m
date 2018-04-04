@@ -1,7 +1,8 @@
 function load_data(Mat)
 
 %% Loading radiation data and material parameters
-[a b c]=xlsread(['C:\Users\Nils\Documents\Nils Reiners\Messdaten\Material_And_Spectral_Data\PV-Lighthouse' '\All_data_PV-Lighthouse.xlsx']);
+curr_path=mfilename('fullpath');
+[a b c]=xlsread([curr_path(1:length(curr_path)-9) 'Data\All_data_PV-Lighthouse.xlsx']);
 
 
 for n = 1:size(Mat,1)

@@ -356,7 +356,7 @@ else
                                     S_botscreen=struct('p',[w/2;w/2;screenpos],'v1',[1;0;0],'v2',[0;1;0],'N',[0;0;1],'pos','bot_scr'); % Determining the representation of the layer for the intersect algorythm
                                     rst_struct_init=struct('nr',0,'r',0,'s',0,'t',0,'first_hit',0,'pos',0); % Resetting rst_struct
                                     [rst2]=intersect(p,P,S_botscreen,rst_struct_init); % Calculating rst for the ray and the layer
-                                    h0=abs(screenpos)-abs(p(3));
+                                    h0=abs(screenpos)-abs(p(3)); % Calculating the hight between the ray starting point and the screen above the texture
                                 elseif P(3)>0 % Upwards
                                     if layer_position==1
                                         screenpos=-0.1;
@@ -368,7 +368,7 @@ else
                                     [rst2]=intersect(p,P,S_topscreen,rst_struct_init);
                                     h0=abs(p(3))-abs(screenpos);
                                 end
-                                t=t-rst_struct(hit).t+rst2.t;
+                                t=t-rst_struct(hit).t+rst2.t; % To find the new length of the ray the above added t up to the side needs to be subtracted and the new t up to the screen needs to be added
                                 if t>xG;
                                     abs_count=abs_count+1;
                                     A(abs_count).nr=I(l).nr;
@@ -382,17 +382,18 @@ else
                                     A(abs_count).abs_loc_eff=Pg(3);
                                     break
                                 else
-                                    r=sqrt(rst2.t^2-h0^2);
-                                    pneu=p+rst2.t*P;
-                                    if pneu(1)>=0&&pneu(2)>=0
+                                    r=sqrt(rst2.t^2-h0^2); %Radius
+                                    pneu=p+rst2.t*P; % Calculating new starting point p of ray (it is out of the unit cell after this step) 
+                                    % Now p is relocated into the unit cell
+                                    if pneu(1)>=0&&pneu(2)>=0 % x and y component are positive
                                         p=[abs(pneu(1));abs(pneu(2));screenpos]-[floor(abs(pneu(1))/w)*w;floor(abs(pneu(2))/w)*w;0];
-                                    elseif pneu(1)<0&&pneu(2)>=0
+                                    elseif pneu(1)<0&&pneu(2)>=0 % x component is negative
                                         p=[w;0;0]-([abs(pneu(1));abs(pneu(2));screenpos]-[floor(abs(pneu(1))/w)*w;floor(abs(pneu(2))/w)*w;0]);
                                         p=[abs(p(1));abs(p(2));-p(3)];
-                                    elseif pneu(1)<0&&pneu(2)<0
+                                    elseif pneu(1)<0&&pneu(2)<0 % x and y components are negative
                                         p=[w;w;0]-([abs(pneu(1));abs(pneu(2));screenpos]-[floor(abs(pneu(1))/w)*w;floor(abs(pneu(2))/w)*w;0]);
                                         p=[abs(p(1));abs(p(2));-p(3)];
-                                    elseif pneu(1)>=0&&pneu(2)<0
+                                    elseif pneu(1)>=0&&pneu(2)<0 % y component is negative
                                         p=[0;w;0]-([abs(pneu(1));abs(pneu(2));screenpos]-[floor(abs(pneu(1))/w)*w;floor(abs(pneu(2))/w)*w;0]);
                                         p=[abs(p(1));abs(p(2));-p(3)];
                                     end                                    

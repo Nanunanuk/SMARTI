@@ -383,18 +383,18 @@ else
                                     break
                                 else
                                     r=sqrt(rst2.t^2-h0^2); %Radius
-                                    pneu=p+rst2.t*P; % Calculating new starting point p of ray (it is out of the unit cell after this step) 
+                                    pnew=p+rst2.t*P; % Calculating new starting point p of ray (it is out of the unit cell after this step) 
                                     % Now p is relocated into the unit cell
-                                    if pneu(1)>=0&&pneu(2)>=0 % x and y component are positive
-                                        p=[abs(pneu(1));abs(pneu(2));screenpos]-[floor(abs(pneu(1))/w)*w;floor(abs(pneu(2))/w)*w;0];
-                                    elseif pneu(1)<0&&pneu(2)>=0 % x component is negative
-                                        p=[w;0;0]-([abs(pneu(1));abs(pneu(2));screenpos]-[floor(abs(pneu(1))/w)*w;floor(abs(pneu(2))/w)*w;0]);
+                                    if pnew(1)>=0&&pnew(2)>=0 % x and y component are positive
+                                        p=[abs(pnew(1));abs(pnew(2));screenpos]-[floor(abs(pnew(1))/w)*w;floor(abs(pnew(2))/w)*w;0];
+                                    elseif pnew(1)<0&&pnew(2)>=0 % x component is negative
+                                        p=[w;0;0]-([abs(pnew(1));abs(pnew(2));screenpos]-[floor(abs(pnew(1))/w)*w;floor(abs(pnew(2))/w)*w;0]);
                                         p=[abs(p(1));abs(p(2));-p(3)];
-                                    elseif pneu(1)<0&&pneu(2)<0 % x and y components are negative
-                                        p=[w;w;0]-([abs(pneu(1));abs(pneu(2));screenpos]-[floor(abs(pneu(1))/w)*w;floor(abs(pneu(2))/w)*w;0]);
+                                    elseif pnew(1)<0&&pnew(2)<0 % x and y components are negative
+                                        p=[w;w;0]-([abs(pnew(1));abs(pnew(2));screenpos]-[floor(abs(pnew(1))/w)*w;floor(abs(pnew(2))/w)*w;0]);
                                         p=[abs(p(1));abs(p(2));-p(3)];
-                                    elseif pneu(1)>=0&&pneu(2)<0 % y component is negative
-                                        p=[0;w;0]-([abs(pneu(1));abs(pneu(2));screenpos]-[floor(abs(pneu(1))/w)*w;floor(abs(pneu(2))/w)*w;0]);
+                                    elseif pnew(1)>=0&&pnew(2)<0 % y component is negative
+                                        p=[0;w;0]-([abs(pnew(1));abs(pnew(2));screenpos]-[floor(abs(pnew(1))/w)*w;floor(abs(pnew(2))/w)*w;0]);
                                         p=[abs(p(1));abs(p(2));-p(3)];
                                     end                                    
                                 end
